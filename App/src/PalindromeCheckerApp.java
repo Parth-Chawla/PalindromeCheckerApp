@@ -3,34 +3,34 @@ import java.util.Scanner;
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Input : ");
         String input = scanner.nextLine();
 
-        PalindromeService service = new PalindromeService();
-        boolean result = service.checkPalindrome(input);
-
-        System.out.println("Is Palindrome? : " + result);
-        scanner.close();
-    }
-}
-
-class PalindromeService {
-
-    public boolean checkPalindrome(String input) {
         String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
+        long startTime = System.nanoTime();
+
+        boolean isPalindrome = true;
         int start = 0;
         int end = normalized.length() - 1;
 
         while (start < end) {
             if (normalized.charAt(start) != normalized.charAt(end)) {
-                return false;
+                isPalindrome = false;
+                break;
             }
             start++;
             end--;
         }
 
-        return true;
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
+
+        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Execution Time : " + executionTime + " ns");
+
+        scanner.close();
     }
 }
